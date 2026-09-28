@@ -1,6 +1,8 @@
 package com.layoffsindia.backend.controller;
 
 
+import com.layoffsindia.backend.dto.LayoffRequest;
+import com.layoffsindia.backend.dto.LayoffResponse;
 import com.layoffsindia.backend.entity.Layoff;
 import com.layoffsindia.backend.service.LayoffService;
 import org.springframework.http.ResponseEntity;
@@ -19,20 +21,21 @@ public class LayoffController {
     }
 
     @PostMapping
-    public ResponseEntity<Layoff> createLayoff(@RequestBody Layoff layoff) {
-        Layoff createdLayoff = layoffService.createLayoff(layoff);
-        return ResponseEntity.ok(createdLayoff);
+    public ResponseEntity<LayoffResponse> createLayoff(@RequestBody LayoffRequest layoff) {
+        return ResponseEntity.ok(layoffService.createLayoff(layoff));
     }
 
     @GetMapping
-    public ResponseEntity<List<Layoff>> getAllLayoffs() {
+    public ResponseEntity<List<LayoffResponse>> getAllLayoffs() {
         return ResponseEntity.ok(layoffService.getAllLayoffs());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Layoff> getLayoffById(@PathVariable Long id) {
-        return layoffService.getLayoffById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<LayoffResponse> getLayoffById(@PathVariable Long id) {
+        LayoffResponse response = layoffService.getLayoffById(id);
+        if(response == null)
+            return ResponseEntity.notFound().build();
+
+        return ResponseEntity.ok(response);
     }
 }
