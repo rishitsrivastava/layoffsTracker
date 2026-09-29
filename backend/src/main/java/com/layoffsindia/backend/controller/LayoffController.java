@@ -5,6 +5,7 @@ import com.layoffsindia.backend.dto.LayoffRequest;
 import com.layoffsindia.backend.dto.LayoffResponse;
 import com.layoffsindia.backend.entity.Layoff;
 import com.layoffsindia.backend.service.LayoffService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,7 +22,7 @@ public class LayoffController {
     }
 
     @PostMapping
-    public ResponseEntity<LayoffResponse> createLayoff(@RequestBody LayoffRequest layoff) {
+    public ResponseEntity<LayoffResponse> createLayoff(@Valid @RequestBody LayoffRequest layoff) {
         return ResponseEntity.ok(layoffService.createLayoff(layoff));
     }
 

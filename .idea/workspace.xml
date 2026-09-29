@@ -5,11 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0a163da5-4e66-4b46-a22b-78369efe4c5e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/layoffsindia/backend/dto/LayoffRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/layoffsindia/backend/dto/LayoffResponse.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/layoffsindia/backend/controller/LayoffController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/layoffsindia/backend/controller/LayoffController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/layoffsindia/backend/service/LayoffService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/layoffsindia/backend/service/LayoffService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/layoffsindia/backend/dto/LayoffRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/layoffsindia/backend/dto/LayoffRequest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,5 +92,16 @@
       <updated>1790232205446</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
