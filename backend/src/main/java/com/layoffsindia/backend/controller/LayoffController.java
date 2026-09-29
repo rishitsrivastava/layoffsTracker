@@ -6,6 +6,7 @@ import com.layoffsindia.backend.dto.LayoffResponse;
 import com.layoffsindia.backend.entity.Layoff;
 import com.layoffsindia.backend.service.LayoffService;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,7 +24,10 @@ public class LayoffController {
 
     @PostMapping
     public ResponseEntity<LayoffResponse> createLayoff(@Valid @RequestBody LayoffRequest layoff) {
-        return ResponseEntity.ok(layoffService.createLayoff(layoff));
+        LayoffResponse response = layoffService.createLayoff(layoff);
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(response);
     }
 
     @GetMapping
