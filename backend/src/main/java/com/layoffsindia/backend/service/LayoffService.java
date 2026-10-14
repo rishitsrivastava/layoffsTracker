@@ -1,6 +1,7 @@
 package com.layoffsindia.backend.service;
 
 
+import com.layoffsindia.backend.dto.LayoffMapResponse;
 import com.layoffsindia.backend.dto.LayoffRequest;
 import com.layoffsindia.backend.dto.LayoffResponse;
 import com.layoffsindia.backend.entity.Layoff;
@@ -8,6 +9,7 @@ import com.layoffsindia.backend.repository.LayoffRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 @Service
@@ -71,5 +73,24 @@ public class LayoffService {
         response.setUpdatedAt(layoff.getUpdatedAt());
 
         return response;
+    }
+
+    public List<LayoffMapResponse> getLayoffsForMap() {
+        return layoffRepository.findAll()
+                .stream()
+                .filter(layoff ->
+                        layoff.getLatitude() != null
+                        && layoff.getLongitude() != null
+                )
+                .map(layoff -> new LayoffMapResponse(
+                        layoff.getId(),
+                        layoff.getCompanyName(),
+                        layoff.getEmployeesAffected(),
+                        layoff.getLocation(),
+                        layoff.getLocationStatus(),
+                        layoff.getLatitude(),
+                        layoff.getLongitude()
+                ))
+                .toList();
     }
 }
