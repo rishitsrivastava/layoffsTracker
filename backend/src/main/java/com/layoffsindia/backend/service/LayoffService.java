@@ -32,6 +32,10 @@ public class LayoffService {
         layoff.setLayoffDate(request.getLayoffDate());
         layoff.setReason(request.getReason());
         layoff.setVerificationStatus(request.getVerificationStatus());
+        layoff.setLatitude(request.getLatitude());
+        layoff.setLongitude(request.getLongitude());
+
+        layoff.setLocationStatus(request.getLocationStatus() == null ? "UNKNOWN" : request.getLocationStatus());
 
         Layoff savedLayoff = layoffRepository.save(layoff);
 

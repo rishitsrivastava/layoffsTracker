@@ -1,6 +1,7 @@
 package com.layoffsindia.backend.controller;
 
 
+import com.layoffsindia.backend.dto.LayoffMapResponse;
 import com.layoffsindia.backend.dto.LayoffRequest;
 import com.layoffsindia.backend.dto.LayoffResponse;
 import com.layoffsindia.backend.entity.Layoff;
@@ -42,5 +43,10 @@ public class LayoffController {
             return ResponseEntity.notFound().build();
 
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/map")
+    public ResponseEntity<List<LayoffMapResponse>> getLayoffsForMap() {
+        return ResponseEntity.ok(layoffService.getLayoffsForMap());
     }
 }
