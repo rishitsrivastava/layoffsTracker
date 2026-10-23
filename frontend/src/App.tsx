@@ -1,11 +1,10 @@
+import { AppLayout } from "./components/layout/AppLayout";
+import { LayoffsMapPage } from "./features/layoffs/pages/LayoffsMapPage";
 
-function App() {
-
+export default function App() {
   return (
-    <>
-
-    </>
-  )
+    <AppLayout>
+      <LayoffsMapPage />
+    </AppLayout>
+  );
 }
-
-export default App
