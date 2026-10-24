@@ -410,3 +410,16 @@ a {
     gap: 10px;
   }
 }
+
+.map-frame {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+}
+
+.layoff-map {
+  width: 100%;
+  height: min(68vh, 680px);
+  min-height: 420px;
+}
