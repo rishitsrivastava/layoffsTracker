@@ -16,6 +16,9 @@ public class LayoffResponse {
     private String country;
     private String location;
     private String headquarters;
+    private String locationStatus;
+    private Double latitude;
+    private Double longitude;
     private LocalDate layoffDate;
     private String reason;
     private String verificationStatus;
