@@ -64,7 +64,11 @@ export function LayoffDetailsPanel({
 
           <div className="details-stat">
             <span>Location classification</span>
-            <strong>{data.locationStatus.replaceAll("_", " ")}</strong>
+            <strong>
+              {data.locationStatus
+                ? data.locationStatus.replaceAll("_", " ")
+                : "UNKNOWN"}
+            </strong>
           </div>
 
           {data.locationStatus === "OFFICE_REFERENCE" && (
