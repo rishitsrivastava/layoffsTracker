@@ -5,6 +5,7 @@ import com.layoffsindia.backend.dto.LayoffMapResponse;
 import com.layoffsindia.backend.dto.LayoffRequest;
 import com.layoffsindia.backend.dto.LayoffResponse;
 import com.layoffsindia.backend.entity.Layoff;
+import com.layoffsindia.backend.exception.ResourceNotFoundException;
 import com.layoffsindia.backend.repository.LayoffRepository;
 import org.springframework.stereotype.Service;
 
@@ -32,11 +33,12 @@ public class LayoffService {
         layoff.setLayoffDate(request.getLayoffDate());
         layoff.setReason(request.getReason());
         layoff.setVerificationStatus(request.getVerificationStatus());
-        layoff.setLatitude(layoff.getLatitude());
-        layoff.setLongitude(layoff.getLongitude());
+        layoff.setLatitude(request.getLatitude());
+        layoff.setLongitude(request.getLongitude());
         layoff.setLocationStatus(request.getLocationStatus() == null ? "UNKNOWN" : request.getLocationStatus());
 
         Layoff savedLayoff = layoffRepository.save(layoff);
+        System.out.println(savedLayoff);
 
         return toResponse(savedLayoff);
     }
@@ -49,9 +51,12 @@ public class LayoffService {
     }
 
     public LayoffResponse getLayoffById(Long id) {
-        return layoffRepository.findById(id)
-                .map(this::toResponse)
-                .orElse(null);
+        Layoff layoff = layoffRepository.findById(id)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Layoff not found: " + id)
+                );
+
+        return toResponse(layoff);
     }
 
     public void deleteLayoff(Long id) {
@@ -71,6 +76,9 @@ public class LayoffService {
         response.setHeadquarters(layoff.getHeadquarters());
         response.setLayoffDate(layoff.getLayoffDate());
         response.setReason(layoff.getReason());
+        response.setLocationStatus(layoff.getLocationStatus());
+        response.setLatitude(layoff.getLatitude());
+        response.setLongitude(layoff.getLongitude());
         response.setVerificationStatus(layoff.getVerificationStatus());
         response.setCreatedAt(layoff.getCreatedAt());
         response.setUpdatedAt(layoff.getUpdatedAt());
