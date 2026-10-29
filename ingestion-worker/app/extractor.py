@@ -3,7 +3,7 @@ import json
 from datetime import date
 from typing import Optional
 
-import requests 
+import requests
 from pydantic import BaseModel, Field, ValidationError
 
 from app.config import (

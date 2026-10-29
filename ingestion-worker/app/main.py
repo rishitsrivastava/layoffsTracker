@@ -75,7 +75,11 @@ def main():
 
         except Exception as exc:
             stats["failed"] += 1
-            print(f"Failed to process {url}: {exc}")
+            print(
+                f"[FAILED] {article.get('title', 'Unknown article')}"
+            )
+            print(f"  URL: {article.get('url', 'Unknown URL')}")
+            print(f"  Error: {type(exc).__name__}: {exc}")
 
     print("\nIngestion run complete.")
     for name, count in stats.items():
