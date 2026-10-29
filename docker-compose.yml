@@ -17,3 +17,37 @@ services:
 
 volumes:
   postgres_data:
+
+
+
+# For containerizing ollama qwen as well.
+
+#   ollama:
+#     image: ollama/ollama
+#     container_name: layoffs-ollama
+#     restart: unless-stopped
+#     ports:
+#       - "127.0.0.1:11434:11434"
+#     volumes:
+#       - ollama_data:/root/.ollama
+#     healthcheck:
+#       test: ["CMD", "ollama", "list"]
+#       interval: 10s
+#       timeout: 5s
+#       retries: 10
+#       start_period: 10s
+
+#   ollama-init:
+#     image: ollama/ollama
+#     container_name: layoffs-ollama-init
+#     depends_on:
+#       ollama:
+#         condition: service_healthy
+#     environment:
+#       OLLAMA_HOST: http://ollama:11434
+#     command: ["pull", "qwen2.5:7b"]
+#     restart: "no"
+
+# volumes:
+#   postgres_data:
+#   ollama_data:
