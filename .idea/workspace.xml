@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0a163da5-4e66-4b46-a22b-78369efe4c5e" name="Changes" comment="" />
+    <list default="true" id="0a163da5-4e66-4b46-a22b-78369efe4c5e" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/ingestion-worker/app/extractor.py" beforeDir="false" afterPath="$PROJECT_DIR$/ingestion-worker/app/extractor.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

@@ -70,6 +70,7 @@ def extract_layoff(article: dict, article_text: str) -> LayoffExtraction:
             "messages": messages,
             "format": schema,
             "stream": False,
+            "keep_alive": "10m",
             "options": {"temperature": 0},
         },
         timeout=REQUEST_TIMEOUT_SECONDS,
