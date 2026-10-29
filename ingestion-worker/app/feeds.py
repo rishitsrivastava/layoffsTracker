@@ -1,3 +1,4 @@
+from googlenewsdecoder import gnewsdecoder
 
 import requests
 import feedparser
@@ -5,6 +6,8 @@ import trafilatura
 
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse
+
+from googlenewsdecoder import gnewsdecoder
 
 from app.config import (
     GOOGLE_NEWS_RSS_URL,
@@ -99,27 +102,34 @@ def discover_articles() -> list[dict]:
     return list(unique.values())[:MAX_ARTICLES_PER_RUN]
 
 
+
+
 def resolve_article_url(url: str) -> str:
-    """Follow HTTP redirects and return the final URL when possible."""
-    try:
-        response = requests.get(
-            url,
-            headers={
-                "User-Agent": (
-                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-                    "AppleWebKit/537.36 Chrome/131.0 Safari/537.36"
-                )
-            },
-            timeout=REQUEST_TIMEOUT_SECONDS,
-            allow_redirects=True,
-            stream=True,
-        )
-        final_url = response.url
-        response.close()
-        return final_url
-    except requests.RequestException as exc:
-        print(f"  URL resolution failed: {exc}")
+    """Resolve a Google News RSS URL to its publisher URL."""
+    if "news.google.com" not in url:
         return url
+
+    try:
+        result = gnewsdecoder(url, interval=1)
+
+        if (
+            result
+            and result.get("success") is True
+            and result.get("decoded_url")
+        ):
+            resolved_url = result["decoded_url"]
+            print(f"  Publisher URL: {resolved_url}")
+            return resolved_url
+
+        print(f"  Google News URL could not be resolved: {result}")
+
+    except Exception as exc:
+        print(f"  Google News URL resolution failed: {exc}")
+
+    return url
+
+
+
 
 
 

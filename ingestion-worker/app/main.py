@@ -47,6 +47,9 @@ def main():
             article_text = fetch_article_text(article)
             extraction = extract_layoff(article, article_text)
 
+            print("Extraction result:")
+            print(extraction.model_dump_json(indent=2))
+
             if not extraction.is_layoff_event:
                 mark_processed(url, "NOT_A_LAYOFF")
                 stats["not_layoff"] += 1
