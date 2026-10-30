@@ -75,7 +75,11 @@ def extract_layoff(article: dict, article_text: str) -> LayoffExtraction:
         },
         timeout=REQUEST_TIMEOUT_SECONDS,
     )
-    response.raise_for_status()
+    if response.status_code != 200:
+        print("\nOllama returned an error!")
+        print(f"Status code: {response.status_code}")
+        print(f"Response body: {response.text}")
+        response.raise_for_status()
 
     content = response.json()["message"]["content"]
     extraction = LayoffExtraction.model_validate_json(content)
