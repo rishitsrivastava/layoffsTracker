@@ -62,7 +62,7 @@
     "expected": {
       "is_layoff_event": true,
       "company_name": "Epsilon Global",
-      "employees_affected": 200,
+      "employees_affected": 40,
       "country": "India"
     }
   }
