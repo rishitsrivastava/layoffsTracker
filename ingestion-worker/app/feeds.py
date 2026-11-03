@@ -5,9 +5,6 @@ import feedparser
 import trafilatura
 
 from bs4 import BeautifulSoup
-from urllib.parse import urlparse
-
-from googlenewsdecoder import gnewsdecoder
 
 from app.config import (
     GOOGLE_NEWS_RSS_URL,
@@ -137,6 +134,9 @@ def resolve_article_url(url: str) -> str:
 def fetch_article_text(article: dict) -> str:
     original_url = article["url"]
     resolved_url = resolve_article_url(original_url)
+
+    article["discovery_url"] = original_url
+    article["url"] = resolved_url
 
     print(f"  Resolved URL: {resolved_url}")
 

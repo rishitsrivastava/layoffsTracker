@@ -1,0 +1,69 @@
+
+[
+  {
+    "id": "TEST-001",
+    "title": "Acme Technologies announces layoffs in India",
+    "article_text": "Acme Technologies announced on October 15, 2026 that it will lay off 500 employees across its Bengaluru and Hyderabad offices in India. The company said the decision is part of its global restructuring programme.",
+    "expected": {
+      "is_layoff_event": true,
+      "company_name": "Acme Technologies",
+      "employees_affected": 500,
+      "country": "India"
+    }
+  },
+  {
+    "id": "TEST-002",
+    "title": "Beta Systems confirms workforce reduction",
+    "article_text": "Beta Systems confirmed that it has laid off employees from its Pune engineering office in India. The company did not disclose how many employees were affected. The announcement was made on October 20, 2026.",
+    "expected": {
+      "is_layoff_event": true,
+      "company_name": "Beta Systems",
+      "employees_affected": null,
+      "country": "India"
+    }
+  },
+  {
+    "id": "TEST-003",
+    "title": "Why layoffs are becoming routine in technology",
+    "article_text": "Layoffs have become a routine feature of the technology industry. Experts believe companies will continue restructuring their operations as they adapt to changing market conditions. The article discusses industry trends but does not report a specific workforce reduction event.",
+    "expected": {
+      "is_layoff_event": false,
+      "company_name": null,
+      "employees_affected": null,
+      "country": null
+    }
+  },
+  {
+    "id": "TEST-004",
+    "title": "Acme Technologies expands its Bengaluru office",
+    "article_text": "Acme Technologies announced plans to hire 300 additional employees for its Bengaluru office in India. The company also discussed workforce trends in the technology industry. No layoffs or workforce reductions were announced.",
+    "expected": {
+      "is_layoff_event": false,
+      "company_name": null,
+      "employees_affected": null,
+      "country": null
+    }
+  },
+  {
+    "id": "TEST-005",
+    "title": "Delta Corporation announces layoffs in the United States",
+    "article_text": "Delta Corporation announced that it will lay off 800 employees at its offices in California and Texas in the United States. The announcement does not mention any workforce reductions affecting employees in India.",
+    "expected": {
+      "is_layoff_event": true,
+      "company_name": "Delta Corporation",
+      "employees_affected": 800,
+      "country": "United States"
+    }
+  },
+  {
+    "id": "TEST-006",
+    "title": "Global restructuring affects Indian employees",
+    "article_text": "Epsilon Global announced a restructuring that will eliminate 200 positions worldwide, including 40 positions at its Hyderabad office in India. The company confirmed that the changes will take effect in November 2026.",
+    "expected": {
+      "is_layoff_event": true,
+      "company_name": "Epsilon Global",
+      "employees_affected": 200,
+      "country": "India"
+    }
+  }
+]
