@@ -1,69 +1,80 @@
 
 [
   {
-    "id": "TEST-001",
-    "title": "Acme Technologies announces layoffs in India",
-    "article_text": "Acme Technologies announced on October 15, 2026 that it will lay off 500 employees across its Bengaluru and Hyderabad offices in India. The company said the decision is part of its global restructuring programme.",
+    "id": "REAL-001",
+    "title": "US real estate firm Opendoor shuts India operations, lays off 250",
+    "url": "https://www.reuters.com/world/india/us-real-estate-firm-opendoor-shuts-india-operations-lays-off-250-2026-06-11/",
     "expected": {
       "is_layoff_event": true,
-      "company_name": "Acme Technologies",
-      "employees_affected": 500,
+      "company_name": "Opendoor",
+      "employees_affected": 250,
       "country": "India"
     }
   },
   {
-    "id": "TEST-002",
-    "title": "Beta Systems confirms workforce reduction",
-    "article_text": "Beta Systems confirmed that it has laid off employees from its Pune engineering office in India. The company did not disclose how many employees were affected. The announcement was made on October 20, 2026.",
+    "id": "REAL-002",
+    "title": "Visa's AI push claims 1,400 jobs in sweeping India workforce cuts",
+    "url": "https://www.business-standard.com/companies/news/visa-cuts-500-jobs-in-india-as-part-of-global-restructuring-programme-126080501287_1.html",
     "expected": {
       "is_layoff_event": true,
-      "company_name": "Beta Systems",
+      "company_name": "Visa",
+      "employees_affected": 1400,
+      "country": "India"
+    }
+  },
+  {
+    "id": "REAL-003",
+    "title": "Oracle lay-offs hit staffers in India; second round in 2026",
+    "url": "https://www.financialexpress.com/business/news/oracle-lay-offs-hit-staffers-in-india-second-round-in-2026/4339972/",
+    "expected": {
+      "is_layoff_event": true,
+      "company_name": "Oracle",
+      "employees_affected": 3000,
+      "country": "India"
+    }
+  },
+  {
+    "id": "REAL-004",
+    "title": "Amazon India lays off 130 employees; 400 affected in three rounds this year",
+    "url": "https://timesofindia.indiatimes.com/business/india-business/amazon-india-lays-off-130-employees-400-affected-in-three-rounds-this-yr/amp_articleshow/134796156.cms",
+    "expected": {
+      "is_layoff_event": true,
+      "company_name": "Amazon",
+      "employees_affected": 130,
+      "country": "India"
+    }
+  },
+  {
+    "id": "REAL-005",
+    "title": "Adidas tech layoffs: Company confirms 20% of India tech hub employees let go",
+    "url": "https://www.indiatoday.in/jobs/story/adidas-says-20-of-india-tech-hub-employees-let-go-not-50-as-reported-2996791-2026-09-17",
+    "expected": {
+      "is_layoff_event": true,
+      "company_name": "Adidas",
       "employees_affected": null,
       "country": "India"
     }
   },
   {
-    "id": "TEST-003",
-    "title": "Why layoffs are becoming routine in technology",
-    "article_text": "Layoffs have become a routine feature of the technology industry. Experts believe companies will continue restructuring their operations as they adapt to changing market conditions. The article discusses industry trends but does not report a specific workforce reduction event.",
+    "id": "REAL-006",
+    "title": "Oracle begins India job cuts, targeting cloud and financial services teams",
+    "url": "https://www.moneycontrol.com/news/business/information-technology/oracle-begins-india-job-cuts-targeting-cloud-and-financial-services-teams-13533345.html",
+    "expected": {
+      "is_layoff_event": true,
+      "company_name": "Oracle",
+      "employees_affected": null,
+      "country": "India"
+    }
+  },
+  {
+    "id": "REAL-007",
+    "title": "Layoffs are now routine. Indian tech should stop waiting for them to pass",
+    "url": "https://timesofindia.indiatimes.com/toi-blogs/beyond-borders/layoffs-are-now-routine-indian-tech-should-stop-waiting-for-them-to-pass/articleshow/135259238.cms",
     "expected": {
       "is_layoff_event": false,
       "company_name": null,
       "employees_affected": null,
       "country": null
-    }
-  },
-  {
-    "id": "TEST-004",
-    "title": "Acme Technologies expands its Bengaluru office",
-    "article_text": "Acme Technologies announced plans to hire 300 additional employees for its Bengaluru office in India. The company also discussed workforce trends in the technology industry. No layoffs or workforce reductions were announced.",
-    "expected": {
-      "is_layoff_event": false,
-      "company_name": null,
-      "employees_affected": null,
-      "country": null
-    }
-  },
-  {
-    "id": "TEST-005",
-    "title": "Delta Corporation announces layoffs in the United States",
-    "article_text": "Delta Corporation announced that it will lay off 800 employees at its offices in California and Texas in the United States. The announcement does not mention any workforce reductions affecting employees in India.",
-    "expected": {
-      "is_layoff_event": true,
-      "company_name": "Delta Corporation",
-      "employees_affected": 800,
-      "country": "United States"
-    }
-  },
-  {
-    "id": "TEST-006",
-    "title": "Global restructuring affects Indian employees",
-    "article_text": "Epsilon Global announced a restructuring that will eliminate 200 positions worldwide, including 40 positions at its Hyderabad office in India. The company confirmed that the changes will take effect in November 2026.",
-    "expected": {
-      "is_layoff_event": true,
-      "company_name": "Epsilon Global",
-      "employees_affected": 40,
-      "country": "India"
     }
   }
 ]
