@@ -69,6 +69,14 @@ def evaluate():
             # Download the actual publisher article.
             article_text = fetch_article_text(article)
 
+            if len(article_text) < 200:
+                print("\nARTICLE RETRIEVAL DEBUG:")
+                print(f"URL: {url}")
+                print(f"Retrieved text: {article_text!r}")
+                print("Skipping LLM extraction.")
+                errors += 1
+                continue
+
             if not article_text.strip():
                 raise ValueError("No article text could be retrieved")
 
