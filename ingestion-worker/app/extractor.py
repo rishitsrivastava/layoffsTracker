@@ -152,22 +152,29 @@ Article:
 Expected:
 employees_affected = 200
 
-6. GEOGRAPHY
+6. COUNTRY EXTRACTION:
 
-The country field refers to where the affected employees
-work, not where the company is headquartered.
+The country refers to where the affected employees work.
 
-Do not infer India from:
-- The article's publication.
-- The company's headquarters.
-- The article's general subject.
-- The company's presence in India.
+Extract the country when the article explicitly identifies the
+affected workforce as belonging to a country.
 
-If the affected employees' country is unclear,
+Examples:
+- "India Technology workforce" -> India
+- "employees in Bengaluru, India" -> India
+- "US-based employees" -> United States
+
+The evidence must be an exact quotation from the article.
+
+A country name does not need to appear in a sentence containing
+the word "layoffs" if the article clearly connects the country
+to the affected workforce.
+
+Do not infer the country from the company's headquarters,
+publication location, or general article context.
+
+If the affected employees' country cannot be established,
 return null for both country and country_evidence.
-
-For country, provide country_evidence containing an exact
-quotation supporting the affected employees' country.
 
 7. EVENT TYPE DISTINCTION
 
@@ -296,6 +303,7 @@ def extract_layoff(article: dict, article_text: str) -> LayoffExtraction:
             "keep_alive": "10m",
             "options": {
                 "temperature": 0,
+                "num_predict": 1024
             },
         },
         timeout=REQUEST_TIMEOUT_SECONDS,
