@@ -3,6 +3,8 @@ import re
 from datetime import date
 from typing import Optional
 
+import time
+
 import requests
 from pydantic import BaseModel, Field
 
@@ -311,6 +313,10 @@ def extract_layoff(article: dict, article_text: str) -> LayoffExtraction:
         },
     ]
 
+    request_start = time.perf_counter()
+
+    print("[OLLAMA] Sending request to Qwen...")
+
     response = requests.post(
         f"{OLLAMA_BASE_URL}/api/chat",
         json={
@@ -326,6 +332,7 @@ def extract_layoff(article: dict, article_text: str) -> LayoffExtraction:
         },
         timeout=REQUEST_TIMEOUT_SECONDS,
     )
+    
 
     if response.status_code != 200:
         print("\nOllama returned an error!")
@@ -333,7 +340,17 @@ def extract_layoff(article: dict, article_text: str) -> LayoffExtraction:
         print(f"Response body: {response.text}")
         response.raise_for_status()
 
-    content = response.json()["message"]["content"]
+    ollama_stats = response.json()
+
+    print("\n[OLLAMA METRICS]")
+    print(f"Total duration: {ollama_stats.get('total_duration', 0) / 1e9:.2f}s")
+    print(f"Load duration: {ollama_stats.get('load_duration', 0) / 1e9:.2f}s")
+    print(f"Prompt evaluation: {ollama_stats.get('prompt_eval_duration', 0) / 1e9:.2f}s")
+    print(f"Token generation: {ollama_stats.get('eval_duration', 0) / 1e9:.2f}s")
+    print(f"Prompt tokens: {ollama_stats.get('prompt_eval_count', 0)}")
+    print(f"Generated tokens: {ollama_stats.get('eval_count', 0)}")
+
+    content = ollama_stats["message"]["content"]
     extraction = LayoffExtraction.model_validate_json(content)
 
     if not extraction.is_layoff_event:
