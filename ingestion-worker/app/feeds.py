@@ -30,6 +30,7 @@ def _is_relevant(title: str) -> bool:
 
 def fetch_rss_articles() -> list[dict]:
     feed = feedparser.parse(GOOGLE_NEWS_RSS_URL)
+    print(f"[DISCOVERY] Google News RSS entries: {len(feed.entries)}")
     articles = []
 
     for entry in feed.entries:
@@ -47,6 +48,8 @@ def fetch_rss_articles() -> list[dict]:
             "source_name": source.get("title") if hasattr(source, "get") else None,
             "summary": entry.get("summary", ""),
         })
+
+    print(f"[DISCOVERY] Relevant RSS articles: {len(articles)}")
 
     return articles
 
@@ -71,6 +74,11 @@ def fetch_newsapi_articles() -> list[dict]:
 
     articles = []
 
+    print(
+        f"[DISCOVERY] NewsAPI returned: "
+        # f"{len(data.get('articles', []))} articles"
+    )
+
     for item in response.json().get("articles", []):
         url = item.get("url")
         title = (item.get("title") or "").strip()
@@ -85,6 +93,8 @@ def fetch_newsapi_articles() -> list[dict]:
             "source_name": (item.get("source") or {}).get("name"),
             "summary": item.get("description") or "",
         })
+
+    print(f"[DISCOVERY] Relevant NewsAPI articles: {len(articles)}")
 
     return articles
 

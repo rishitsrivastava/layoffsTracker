@@ -38,11 +38,13 @@ def main():
         try:
             # 1. Skip previously processed articles.
             if is_processed(url):
+                print(f"[DUPLICATE - SWLITE] {url}")
                 stats["duplicates"] += 1
                 continue
 
             # 2. Skip articles already represented in the backend.
             if url in existing_source_urls:
+                print(f"[DUPLICATE - BACKEND] {url}")
                 mark_processed(url, "DUPLICATE")
                 stats["duplicates"] += 1
                 continue
@@ -78,6 +80,11 @@ def main():
 
                 mark_processed(url, "NOT_CONFIRMED_INDIA")
                 stats["not_india"] += 1
+                continue
+
+            if extraction.is_layoff_event and not extraction.company_name:
+                print("Needs review: company could not be identified.")
+                stats["needs_review"] += 1
                 continue
 
             # 8. Dry run: display candidate without saving it.

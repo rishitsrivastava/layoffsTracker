@@ -268,6 +268,24 @@ def evidence_exists(
 
     return normalized_evidence in normalized_article
 
+def employee_count_is_supported(
+    employees_affected: Optional[int],
+    evidence: Optional[str],
+) -> bool:
+    if employees_affected is None:
+        return True
+
+    if not evidence:
+        return False
+
+    # Match numeric representations such as 300, 1,400, or 3000.
+    numbers = re.findall(r"\b\d[\d,]*\b", evidence)
+
+    return any(
+        int(number.replace(",", "")) == employees_affected
+        for number in numbers
+    )
+
 
 def extract_layoff(article: dict, article_text: str) -> LayoffExtraction:
     if len(article_text.strip()) < MIN_ARTICLE_TEXT_LENGTH:
@@ -340,6 +358,9 @@ def extract_layoff(article: dict, article_text: str) -> LayoffExtraction:
     if not evidence_exists(
         article_text,
         extraction.employees_evidence,
+    ) or not employee_count_is_supported(
+        extraction.employees_affected,
+        extraction.employees_evidence,
     ):
         extraction.employees_affected = None
         extraction.employees_evidence = None
@@ -352,10 +373,10 @@ def extract_layoff(article: dict, article_text: str) -> LayoffExtraction:
         extraction.country = None
         extraction.country_evidence = None
 
-    # A specific event without an evidenced company is not
-    # sufficiently identifiable for our current pipeline.
-    if not extraction.company_name:
-        extraction.is_layoff_event = False
+    # # A specific event without an evidenced company is not
+    # # sufficiently identifiable for our current pipeline.
+    # if not extraction.company_name:
+    #     extraction.is_layoff_event = False
 
     if extraction.layoff_date:
         try:
