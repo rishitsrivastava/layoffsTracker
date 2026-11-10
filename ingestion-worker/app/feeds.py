@@ -1,10 +1,10 @@
-from googlenewsdecoder import gnewsdecoder
 
 import requests
 import feedparser
 import trafilatura
 
 from bs4 import BeautifulSoup
+from googlenewsdecoder import gnewsdecoder
 
 from app.config import (
     GOOGLE_NEWS_RSS_URL,
@@ -30,7 +30,9 @@ def _is_relevant(title: str) -> bool:
 
 def fetch_rss_articles() -> list[dict]:
     feed = feedparser.parse(GOOGLE_NEWS_RSS_URL)
+
     print(f"[DISCOVERY] Google News RSS entries: {len(feed.entries)}")
+
     articles = []
 
     for entry in feed.entries:
@@ -41,11 +43,16 @@ def fetch_rss_articles() -> list[dict]:
             continue
 
         source = entry.get("source", {})
+
         articles.append({
             "title": title,
             "url": url,
             "published_at": entry.get("published"),
-            "source_name": source.get("title") if hasattr(source, "get") else None,
+            "source_name": (
+                source.get("title")
+                if hasattr(source, "get")
+                else None
+            ),
             "summary": entry.get("summary", ""),
         })
 
@@ -70,16 +77,17 @@ def fetch_newsapi_articles() -> list[dict]:
         },
         timeout=REQUEST_TIMEOUT_SECONDS,
     )
+
     response.raise_for_status()
+
+    data = response.json()
+    raw_articles = data.get("articles", [])
+
+    print(f"[DISCOVERY] NewsAPI returned: {len(raw_articles)} articles")
 
     articles = []
 
-    print(
-        f"[DISCOVERY] NewsAPI returned: "
-        # f"{len(data.get('articles', []))} articles"
-    )
-
-    for item in response.json().get("articles", []):
+    for item in raw_articles:
         url = item.get("url")
         title = (item.get("title") or "").strip()
 
@@ -103,16 +111,16 @@ def discover_articles() -> list[dict]:
     articles = fetch_rss_articles() + fetch_newsapi_articles()
 
     unique = {}
+
     for article in articles:
         unique.setdefault(article["url"], article)
 
     return list(unique.values())[:MAX_ARTICLES_PER_RUN]
 
 
-
-
 def resolve_article_url(url: str) -> str:
     """Resolve a Google News RSS URL to its publisher URL."""
+
     if "news.google.com" not in url:
         return url
 
@@ -125,7 +133,9 @@ def resolve_article_url(url: str) -> str:
             and result.get("decoded_url")
         ):
             resolved_url = result["decoded_url"]
+
             print(f"  Publisher URL: {resolved_url}")
+
             return resolved_url
 
         print(f"  Google News URL could not be resolved: {result}")
@@ -133,19 +143,18 @@ def resolve_article_url(url: str) -> str:
     except Exception as exc:
         print(f"  Google News URL resolution failed: {exc}")
 
+    # Keep the original URL if decoding fails.
     return url
-
-
-
-
-
 
 
 def fetch_article_text(article: dict) -> str:
     original_url = article["url"]
     resolved_url = resolve_article_url(original_url)
 
+    # Preserve the discovery URL for traceability.
     article["discovery_url"] = original_url
+
+    # Use the publisher URL for subsequent processing and persistence.
     article["url"] = resolved_url
 
     print(f"  Resolved URL: {resolved_url}")
@@ -161,12 +170,14 @@ def fetch_article_text(article: dict) -> str:
                 include_comments=False,
                 include_tables=False,
             )
+
             if extracted:
                 text = extracted.strip()
 
     except Exception as exc:
         print(f"  Article download failed: {exc}")
 
+    # Fall back to the RSS/NewsAPI summary when article extraction is short.
     if len(text) < 200:
         summary = BeautifulSoup(
             article.get("summary", ""),
@@ -177,9 +188,10 @@ def fetch_article_text(article: dict) -> str:
             text = summary
 
     title = article.get("title", "").strip()
+
     if title and title not in text:
         text = f"{title}\n\n{text}".strip()
 
     print(f"  Retrieved text length: {len(text)} characters")
-    return text
 
+    return text

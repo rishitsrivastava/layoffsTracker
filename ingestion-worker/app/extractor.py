@@ -327,11 +327,15 @@ def extract_layoff(article: dict, article_text: str) -> LayoffExtraction:
             "keep_alive": "10m",
             "options": {
                 "temperature": 0,
-                "num_predict": 1024
+                "num_predict": 256
             },
         },
         timeout=REQUEST_TIMEOUT_SECONDS,
     )
+
+    request_time = time.perf_counter() - request_start
+
+    print(f"[OLLAMA] HTTP request completed in {request_time:.2f}s")
     
 
     if response.status_code != 200:
@@ -352,6 +356,8 @@ def extract_layoff(article: dict, article_text: str) -> LayoffExtraction:
 
     content = ollama_stats["message"]["content"]
     extraction = LayoffExtraction.model_validate_json(content)
+
+    print("[OLLAMA] JSON parsed and validated.")
 
     if not extraction.is_layoff_event:
         extraction.company_name = None
