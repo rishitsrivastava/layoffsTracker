@@ -39,3 +39,7 @@ if not SQLITE_PATH.is_absolute():
     SQLITE_PATH = PROJECT_ROOT / SQLITE_PATH
 
 DRY_RUN = os.getenv("DRY_RUN", "true").lower() == "true"
+
+FORCE_REPROCESS = os.getenv(
+    "FORCE_REPROCESS", "false"
+).lower() == "true"

@@ -4,12 +4,14 @@ import time
 from app.config import DRY_RUN
 from app.extractor import extract_layoff
 from app.feeds import discover_articles, fetch_article_text
+from app.config import FORCE_REPROCESS
 
 from app.persistence import (
     get_existing_source_urls,
     is_processed,
     mark_processed,
     save_unverified_candidate,
+    normalize_url
 )
 
 
@@ -62,10 +64,14 @@ def main():
 
         try:
             # 1. Skip previously processed articles.
-            if is_processed(url):
-                print(f"[DUPLICATE - SQLITE] {url}")
-                stats["duplicates"] += 1
-                continue
+            if not FORCE_REPROCESS:
+                if is_processed(article["url"]):
+                    # Skip duplicate
+                    continue
+
+                if normalize_url(article["url"]) in existing_source_urls:
+                    # Skip existing backend source
+                    continue
 
             # 2. Skip articles already represented in the backend.
             if url in existing_source_urls:

@@ -327,7 +327,7 @@ def extract_layoff(article: dict, article_text: str) -> LayoffExtraction:
             "keep_alive": "10m",
             "options": {
                 "temperature": 0,
-                "num_predict": 256
+                "num_predict": 1024
             },
         },
         timeout=REQUEST_TIMEOUT_SECONDS,
